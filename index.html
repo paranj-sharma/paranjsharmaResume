@@ -1,152 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paranj Sharma | Salesforce Developer</title>
+
+    <!-- Tailwind + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Icons, Typed, Particles, AOS, GSAP -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <style>
-      body {
-        font-family: 'Poppins', sans-serif;
+      :root{
+        --accent-1:#6B46C1; /* purple */
+        --accent-2:#0f6fc6; /* blue */
+      }
+      html{scroll-behavior:smooth}
+      body{font-family: 'Poppins', sans-serif;background:linear-gradient(135deg,#050816 0%,#0b1223 50%);color:#e6eef8}
+
+      /* progress bar */
+      #progress{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent-2),var(--accent-1));width:0;z-index:60}
+
+      /* sticky nav */
+      nav{backdrop-filter:blur(6px);background:rgba(10,14,30,0.45)}
+
+      /* hero particles container */
+      #particles-js{position:absolute;width:100%;height:100%;top:0;left:0;z-index:0}
+
+      /* glass card */
+      .glass-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(8px);border-radius:12px}
+
+      /* back to top */
+      #backTop{position:fixed;right:20px;bottom:20px;z-index:70;display:none}
+
+      /* animated label inputs */
+      .input-wrap{position:relative}
+      .input-wrap label{position:absolute;left:12px;top:12px;color:#374151;pointer-events:none;transition:all .15s}
+      .input-wrap input:focus + label,.input-wrap input:not(:placeholder-shown) + label,
+      .input-wrap textarea:focus + label,.input-wrap textarea:not(:placeholder-shown) + label{
+        transform:translateY(-22px) scale(.9);color:var(--accent-1)
       }
 
-      #particles-js {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 0;
-      }
+      /* card hover glow */
+      .card-hover{transition:transform .35s, box-shadow .35s}
+      .card-hover:hover{transform:translateY(-8px);box-shadow:0 10px 30px rgba(107,70,193,.18)}
 
-      .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 1rem;
-      }
+      /* small screens spacing */
+      @media (max-width:640px){.desktop-only{display:none}}
     </style>
   </head>
-  <body class="bg-gradient-to-br from-blue-900 via-purple-900 to-black text-gray-100">
-    <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+
+  <body>
+    <!-- scroll progress -->
+    <div id="progress"></div>
+
+    <!-- Sticky Nav -->
+    <nav class="fixed w-full top-4 px-6 z-50">
+      <div class="max-w-6xl mx-auto flex items-center justify-between py-3">
+        <a href="#" class="text-white font-bold text-lg">Paranj Sharma</a>
+        <div class="space-x-4 items-center hidden md:flex">
+          <a href="#skills" class="text-sm hover:text-gray-200">Skills</a>
+          <a href="#experience" class="text-sm hover:text-gray-200">Experience</a>
+          <a href="#projects" class="text-sm hover:text-gray-200">Projects</a>
+          <a href="#contact" class="text-sm hover:text-gray-200">Contact</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/paranjsharma/" target="_blank" class="p-2 rounded-full hover:scale-110 transition bg-white/5"><i data-feather="linkedin"></i></a>
+          <a href="https://github.com/paranj-sharma" target="_blank" class="p-2 rounded-full hover:scale-110 transition bg-white/5"><i data-feather="github"></i></a>
+          <button id="themeToggle" class="ml-2 p-2 rounded-full bg-white text-indigo-700 shadow hover:scale-110 transition desktop-only"><i id="themeIcon" data-feather="moon"></i></button>
+          <button id="menuBtn" class="md:hidden p-2 ml-2 bg-white/5 rounded"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black/60 hidden z-40">
+      <div class="absolute right-4 top-20 bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg">
+        <a href="#skills" class="block py-2" onclick="toggleMobile()">Skills</a>
+        <a href="#experience" class="block py-2" onclick="toggleMobile()">Experience</a>
+        <a href="#projects" class="block py-2" onclick="toggleMobile()">Projects</a>
+        <a href="#contact" class="block py-2" onclick="toggleMobile()">Contact</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="relative h-screen flex items-center justify-center text-center overflow-hidden">
       <div id="particles-js"></div>
-      <div class="relative z-10">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Paranj Sharma" class="w-40 h-40 rounded-full mx-auto border-4 border-purple-400 shadow-xl mb-6 animate-bounce" />
-        <h1 class="text-5xl font-extrabold mb-3">Paranj Sharma</h1>
-        <p class="text-xl mb-4">
-          <span id="typed"></span>
-        </p>
+
+      <div class="relative z-10 max-w-4xl px-6" data-aos="zoom-in">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Paranj Sharma" class="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-xl mb-6" />
+        <h1 class="text-5xl font-extrabold mb-2 leading-tight">Paranj Sharma</h1>
+        <p class="text-xl mb-6 opacity-80"><span id="typed"></span></p>
         <div class="flex justify-center gap-4">
-          <a href="ParanjresumeLixil.pdf" download class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:scale-105 transition">Download Resume</a>
+          <a href="ParanjresumeLixil.pdf" download class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-semibold shadow-lg hover:scale-105 transition">Download Resume</a>
           <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold shadow-lg hover:scale-105 transition">Hire Me</a>
         </div>
+
+        <div class="mt-6 flex justify-center gap-4 opacity-90">
+          <a href="https://www.linkedin.com/in/paranjsharma/" target="_blank" class="p-2 rounded-full bg-white/6 hover:bg-white/10 transition"><i data-feather="linkedin"></i></a>
+          <a href="https://github.com/paranj-sharma" target="_blank" class="p-2 rounded-full bg-white/6 hover:bg-white/10 transition"><i data-feather="github"></i></a>
+        </div>
       </div>
-    </section>
+
+      <!-- subtle wave at bottom -->
+      <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 40C120 10 280 60 480 60C720 60 900 10 1440 40V120H0V40Z" fill="rgba(255,255,255,0.02)"></path></svg>
+    </header>
+
     <!-- Skills -->
-    <section id="skills" class="max-w-6xl mx-auto py-20 px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">⚡ Skills</h2>
-      <div class="grid md:grid-cols-3 gap-10">
-        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
-          <img src="https://img.icons8.com/color/96/salesforce.png" class="mx-auto mb-4" />
-          <h3 class="text-2xl font-semibold mb-2">Salesforce Multi-Cloud</h3>
-          <p>Sales, Service, Field Service, Industry Cloud</p>
-        </div>
-        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
-          <img src="https://img.icons8.com/color/96/source-code.png" class="mx-auto mb-4" />
-          <h3 class="text-2xl font-semibold mb-2">Development</h3>
-          <p>Apex, LWC, Aura, Visualforce, Flows, Omnistudio</p>
-        </div>
-        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
-          <img src="https://img.icons8.com/color/96/api.png" class="mx-auto mb-4" />
-          <h3 class="text-2xl font-semibold mb-2">Integrations & Tools</h3>
-          <p>MuleSoft, APIs, Git, Copado, CI/CD, SonarQube</p>
-        </div>
-      </div>
-    </section>
-    <!-- Experience -->
-    <section id="experience" class="bg-gray-900 py-20 px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">💼 Experience</h2>
-      <div class="relative max-w-5xl mx-auto">
-        <div class="border-l-4 border-purple-500">
-          <div class="ml-6 mb-10">
-            <h3 class="text-2xl font-semibold">Senior Salesforce Developer – Tech Mahindra</h3>
-            <p class="text-sm text-gray-400 mb-3">Dec 2022 – Present</p>
-            <ul class="list-disc list-inside space-y-2">
-              <li>Lead Salesforce & Vlocity development for enterprise clients.</li>
-              <li>Created LWCs, Omniscripts, and guided flows for order processes.</li>
-              <li>Provided L3 Salesforce support and troubleshooting.</li>
-              <li>Ensured code quality via unit testing & SonarQube.</li>
-              <li>Contributed to CI/CD deployments using Copado.</li>
-            </ul>
+    <main class="pb-24">
+      <section id="skills" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">⚡ Skills</h2>
+        <div class="grid md:grid-cols-3 gap-10">
+          <div class="glass-card p-6 text-center shadow-xl card-hover" data-aos="zoom-in" data-aos-delay="100">
+            <img src="https://img.icons8.com/color/96/salesforce.png" class="mx-auto mb-4" />
+            <h3 class="text-2xl font-semibold mb-2">Salesforce Multi-Cloud</h3>
+            <p>Sales, Service, Field Service, Industry Cloud</p>
           </div>
-          <div class="ml-6 mb-10">
-            <h3 class="text-2xl font-semibold">Salesforce Developer – Accenture</h3>
-            <p class="text-sm text-gray-400 mb-3">Aug 2019 – Dec 2022</p>
-            <ul class="list-disc list-inside space-y-2">
-              <li>Delivered support and customizations on Sales, Service, and FSL Clouds.</li>
-              <li>Built orchestration plans for Salesforce order management.</li>
-              <li>Developed Omniscript actions, APIs, and automated flows.</li>
-              <li>Created and customized attributes in Vlocity Product Console.</li>
-            </ul>
+          <div class="glass-card p-6 text-center shadow-xl card-hover" data-aos="zoom-in" data-aos-delay="200">
+            <img src="https://img.icons8.com/color/96/source-code.png" class="mx-auto mb-4" />
+            <h3 class="text-2xl font-semibold mb-2">Development</h3>
+            <p>Apex, LWC, Aura, Visualforce, Flows, Omnistudio</p>
+          </div>
+          <div class="glass-card p-6 text-center shadow-xl card-hover" data-aos="zoom-in" data-aos-delay="300">
+            <img src="https://img.icons8.com/color/96/api.png" class="mx-auto mb-4" />
+            <h3 class="text-2xl font-semibold mb-2">Integrations & Tools</h3>
+            <p>MuleSoft, APIs, Git, Copado, CI/CD, SonarQube</p>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Projects -->
-    <section id="projects" class="max-w-6xl mx-auto py-20 px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">🚀 Projects</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
-          <img src="https://source.unsplash.com/400x250/?car,technology" class="rounded mb-4" />
-          <h3 class="text-xl font-semibold mb-2">Automobile Client</h3>
-          <p>Built customer vehicle ordering portal using Experience Cloud, LWCs, and Omniscripts.</p>
+      </section>
+
+      <!-- Experience timeline -->
+      <section id="experience" class="bg-gray-900 py-20 px-6">
+        <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">💼 Experience</h2>
+        <div class="relative max-w-5xl mx-auto">
+          <div class="border-l-4 border-purple-500">
+            <div class="ml-6 mb-10" data-aos="fade-right">
+              <h3 class="text-2xl font-semibold">Senior Salesforce Developer – Tech Mahindra</h3>
+              <p class="text-sm text-gray-400 mb-3">Dec 2022 – Present</p>
+              <ul class="list-disc list-inside space-y-2">
+                <li>Working as Senior Salesforce and Vlocity Developer on building Salesforce solutions for enterprise clients.</li>
+                <li>Provide L3 Salesforce support for Sales & Service Cloud, troubleshooting incidents, analyzing root causes, and delivering permanent fixes.</li>
+                <li>Created Lightning Web Components for implementing custom functionalities and screens.</li>
+                <li>Built a complete order process guided flow using Vlocity Omniscript and LWCs.</li>
+                <li>Ensured code quality through unit testing and static analysis (SonarQube); contributed to CI/CD deployments via Copado.</li>
+              </ul>
+            </div>
+            <div class="ml-6 mb-10" data-aos="fade-left">
+              <h3 class="text-2xl font-semibold">Salesforce Developer – Accenture</h3>
+              <p class="text-sm text-gray-400 mb-3">Aug 2019 – Dec 2022</p>
+              <ul class="list-disc list-inside space-y-2">
+                <li>Delivered application support and customizations on Sales, Service, and Field Service Clouds.</li>
+                <li>Created flows and automation for system notifications and email triggers.</li>
+                <li>Created and configured Omniscript action elements such as DataRaptors, Integration Procedures, Remote Action, Set Values etc.</li>
+                <li>Worked on Salesforce support tools like Workbench, Data Loader, Salesforce Inspector.</li>
+                <li>Created a new product for client using Vlocity Product Console and salesforce product modelling.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
-          <img src="https://source.unsplash.com/400x250/?communication,team" class="rounded mb-4" />
-          <h3 class="text-xl font-semibold mb-2">Sales & Communication Client</h3>
-          <p>Developed guided flows, custom components, and integrated email automation using flows & APIs.</p>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="max-w-6xl mx-auto py-20 px-6">
+        <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">🚀 Projects</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="glass-card p-6 shadow-xl card-hover" data-aos="flip-left">
+            <img src="https://source.unsplash.com/400x250/?car,technology" class="rounded mb-4" />
+            <h3 class="text-xl font-semibold mb-2">Automobile Client</h3>
+            <p>Worked on configurations, customization, and integrations. Built customer vehicle ordering portal using Experience Cloud and LWCs.</p>
+          </div>
+          <div class="glass-card p-6 shadow-xl card-hover" data-aos="flip-left" data-aos-delay="150">
+            <img src="https://source.unsplash.com/400x250/?communication,team" class="rounded mb-4" />
+            <h3 class="text-xl font-semibold mb-2">Sales & Communication Client</h3>
+            <p>Developed guided flows, custom components, and integrations. Built email functionality using flows and API integrations.</p>
+          </div>
+          <div class="glass-card p-6 shadow-xl card-hover" data-aos="flip-left" data-aos-delay="300">
+            <img src="https://source.unsplash.com/400x250/?technology,work" class="rounded mb-4" />
+            <h3 class="text-xl font-semibold mb-2">Communication Client</h3>
+            <p>Worked extensively on Apex classes, Test classes, Triggers, and Integrations. Led code reviews and refactors.</p>
+          </div>
         </div>
-        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
-          <img src="https://source.unsplash.com/400x250/?technology,work" class="rounded mb-4" />
-          <h3 class="text-xl font-semibold mb-2">Communication Client</h3>
-          <p>Delivered Apex triggers, LWCs, and integrations; ensured release quality with refactored test classes.</p>
+
+        <div class="text-center mt-10" data-aos="fade-up">
+          <a href="https://github.com/paranj-sharma" target="_blank" class="px-6 py-3 bg-gradient-to-r from-gray-700 to-black text-white rounded-lg font-semibold shadow-lg hover:scale-105 transition">🔗 View My GitHub Projects</a>
         </div>
-      </div>
-    </section>
-    <!-- Certifications -->
-    <section id="certifications" class="bg-gray-900 py-20 px-6">
-      <h2 class="text-4xl font-bold text-center mb-12">🎓 Certifications</h2>
-      <div class="flex flex-wrap justify-center gap-6">
-        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Platform Developer I</span>
-        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce App Builder</span>
-        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Administrator</span>
-        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Omnistudio Developer</span>
-        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Copado Fundamentals I</span>
-      </div>
-    </section>
-    <!-- Contact -->
-    <section id="contact" class="max-w-3xl mx-auto py-20 px-6 text-center">
-      <h2 class="text-4xl font-bold mb-6">📩 Get In Touch</h2>
-      <p class="mb-6">Interested in working together? Let's connect!</p>
-      <form action="https://formspree.io/f/mwkzjdbq" method="POST" class="glass-card p-6 space-y-4">
-        <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 rounded-lg text-black" />
-        <input type="email" name="email" placeholder="Your Email" required class="w-full p-3 rounded-lg text-black" />
-        <textarea name="message" placeholder="Your Message" rows="4" required class="w-full p-3 rounded-lg text-black"></textarea>
-        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow hover:scale-105 transition">Send Message</button>
-      </form>
-    </section>
+      </section>
+
+      <!-- Certifications -->
+      <section id="certifications" class="bg-gray-900 py-20 px-6">
+        <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">🎓 Certifications</h2>
+        <div class="flex flex-wrap justify-center gap-6">
+          <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow" data-aos="zoom-in">Salesforce Platform Developer I</span>
+          <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow" data-aos="zoom-in" data-aos-delay="100">Salesforce App Builder</span>
+          <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow" data-aos="zoom-in" data-aos-delay="200">Salesforce Administrator</span>
+          <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow" data-aos="zoom-in" data-aos-delay="300">Salesforce Omnistudio Developer</span>
+          <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow" data-aos="zoom-in" data-aos-delay="400">Copado Fundamentals I</span>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="max-w-3xl mx-auto py-20 px-6 text-center">
+        <h2 class="text-4xl font-bold mb-6" data-aos="fade-up">📩 Get In Touch</h2>
+        <p class="mb-6" data-aos="fade-up" data-aos-delay="100">Interested in working together? Let's connect!</p>
+        <form id="contactForm" action="https://formspree.io/f/mwkzjdbq" method="POST" class="glass-card p-6 space-y-4" data-aos="zoom-in">
+          <div class="input-wrap">
+            <input id="name" type="text" name="name" placeholder=" " required class="w-full p-3 rounded-lg text-black" />
+            <label for="name">Your Name</label>
+          </div>
+          <div class="input-wrap">
+            <input id="email" type="email" name="email" placeholder=" " required class="w-full p-3 rounded-lg text-black" />
+            <label for="email">Your Email</label>
+          </div>
+          <div class="input-wrap">
+            <textarea id="message" name="message" placeholder=" " rows="4" required class="w-full p-3 rounded-lg text-black"></textarea>
+            <label for="message">Your Message</label>
+          </div>
+          <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow hover:scale-105 transition">Send Message</button>
+          <p id="formStatus" class="text-sm mt-2 opacity-0"></p>
+        </form>
+      </section>
+    </main>
+
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-blue-600 to-purple-700 text-white text-center py-6">
       <p>© 2025 Paranj Sharma</p>
-      <div class="flex justify-center gap-6 mt-3">
-        <a href="https://www.linkedin.com" target="_blank" class="hover:text-gray-300">
+      <div class="flex justify-center gap-6 mt-3" data-aos="fade-up">
+        <a href="https://www.linkedin.com/in/paranjsharma/" target="_blank" class="hover:text-gray-300">
           <i data-feather="linkedin"></i>
         </a>
-        <a href="https://github.com" target="_blank" class="hover:text-gray-300">
+        <a href="https://github.com/paranj-sharma" target="_blank" class="hover:text-gray-300">
           <i data-feather="github"></i>
         </a>
         <a href="mailto:paranjsharma@gmail.com" class="hover:text-gray-300">
@@ -159,8 +248,83 @@
         </button>
       </div>
     </footer>
+
+    <!-- back to top -->
+    <button id="backTop" class="p-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg" title="Back to top">⬆</button>
+
+    <!-- Scripts -->
     <script>
-      feather.replace(); // Typed.js effect var typed = new Typed('#typed', { strings: ["Salesforce Developer", "Apex | LWC | Aura", "Omnistudio Expert", "Integration Specialist"], typeSpeed: 60, backSpeed: 40, loop: true }); // Dark Mode toggle with icon switch const toggleBtn = document.getElementById('darkToggle'); const themeIcon = document.getElementById('themeIcon'); toggleBtn.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); if (document.documentElement.classList.contains('dark')) { themeIcon.setAttribute('data-feather', 'sun'); } else { themeIcon.setAttribute('data-feather', 'moon'); } feather.replace(); }); // Particles.js config particlesJS('particles-js', { particles: { number: { value: 80 }, size: { value: 3 }, move: { speed: 2 }, line_linked: { enable: true }, }, interactivity: { events: { onhover: { enable: true, mode: 'repulse' } }, } }); 
+      feather.replace();
+
+      // Typed.js effect
+      var typed = new Typed('#typed', {
+        strings: ['Salesforce Developer', 'Apex | LWC | Aura', 'Omnistudio Expert', 'Integration Specialist'],
+        typeSpeed: 60,
+        backSpeed: 40,
+        loop: true
+      });
+
+      // Particles config
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 60 },
+          color: { value: '#9be7ff' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.5 },
+          size: { value: 3 },
+          line_linked: { enable: true, distance: 150, color: '#9be7ff', opacity: 0.12, width: 1 },
+          move: { speed: 2 }
+        },
+        interactivity: { events: { onhover: { enable: true, mode: 'repulse' } } }
+      });
+
+      // AOS init
+      AOS.init({ duration: 900, once: true });
+
+      // Smooth mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      function toggleMobile(){ mobileMenu.classList.toggle('hidden'); }
+      menuBtn && menuBtn.addEventListener('click', toggleMobile);
+
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      themeToggle && themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        if(document.documentElement.classList.contains('dark')) themeIcon.setAttribute('data-feather','sun'); else themeIcon.setAttribute('data-feather','moon');
+        feather.replace();
+      });
+
+      // Back to top
+      const backTop = document.getElementById('backTop');
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+        document.getElementById('progress').style.width = Math.min(100, Math.round(scrolled*100)) + '%';
+        if(window.scrollY > 600) backTop.style.display = 'block'; else backTop.style.display = 'none';
+      });
+      backTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+      // Contact form with client-side success message
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      form && form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        try{
+          const res = await fetch(form.action, { method: form.method, body: fd, headers: { 'Accept': 'application/json' } });
+          if(res.ok){ status.textContent = 'Thanks — message sent!'; status.style.opacity = 1; form.reset(); gsap.fromTo(status, {opacity:0,y:10},{opacity:1,y:0,duration:.6}); }
+          else { throw new Error('Network response not ok'); }
+        }catch(err){ status.textContent = 'Sorry — there was a problem sending your message.'; status.style.opacity = 1; }
+      });
+
+      // Entrance GSAP for hero content
+      gsap.from('.z-10 img', {duration:1.2, y:-40, opacity:0, ease:'expo'});
+      gsap.from('.z-10 h1', {duration:1.2, y:20, opacity:0, delay:.2, ease:'power3.out'});
+      gsap.from('.z-10 p', {duration:1.2, y:10, opacity:0, delay:.4, ease:'power3.out'});
+
+      // small accessibility: close mobile when link clicked
+      document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click', ()=>mobileMenu.classList.add('hidden')));
     </script>
   </body>
 </html>
