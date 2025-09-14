@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paranj Sharma | Salesforce Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-900 via-purple-900 to-black text-gray-100">
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+      <div id="particles-js"></div>
+      <div class="relative z-10">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Paranj Sharma" class="w-40 h-40 rounded-full mx-auto border-4 border-purple-400 shadow-xl mb-6 animate-bounce" />
+        <h1 class="text-5xl font-extrabold mb-3">Paranj Sharma</h1>
+        <p class="text-xl mb-4">
+          <span id="typed"></span>
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="ParanjresumeLixil.pdf" download class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:scale-105 transition">Download Resume</a>
+          <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg font-semibold shadow-lg hover:scale-105 transition">Hire Me</a>
+        </div>
+      </div>
+    </section>
+    <!-- Skills -->
+    <section id="skills" class="max-w-6xl mx-auto py-20 px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">⚡ Skills</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
+          <img src="https://img.icons8.com/color/96/salesforce.png" class="mx-auto mb-4" />
+          <h3 class="text-2xl font-semibold mb-2">Salesforce Multi-Cloud</h3>
+          <p>Sales, Service, Field Service, Industry Cloud</p>
+        </div>
+        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
+          <img src="https://img.icons8.com/color/96/source-code.png" class="mx-auto mb-4" />
+          <h3 class="text-2xl font-semibold mb-2">Development</h3>
+          <p>Apex, LWC, Aura, Visualforce, Flows, Omnistudio</p>
+        </div>
+        <div class="glass-card p-6 text-center shadow-xl hover:scale-105 transition">
+          <img src="https://img.icons8.com/color/96/api.png" class="mx-auto mb-4" />
+          <h3 class="text-2xl font-semibold mb-2">Integrations & Tools</h3>
+          <p>MuleSoft, APIs, Git, Copado, CI/CD, SonarQube</p>
+        </div>
+      </div>
+    </section>
+    <!-- Experience -->
+    <section id="experience" class="bg-gray-900 py-20 px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">💼 Experience</h2>
+      <div class="relative max-w-5xl mx-auto">
+        <div class="border-l-4 border-purple-500">
+          <div class="ml-6 mb-10">
+            <h3 class="text-2xl font-semibold">Senior Salesforce Developer – Tech Mahindra</h3>
+            <p class="text-sm text-gray-400 mb-3">Dec 2022 – Present</p>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Lead Salesforce & Vlocity development for enterprise clients.</li>
+              <li>Created LWCs, Omniscripts, and guided flows for order processes.</li>
+              <li>Provided L3 Salesforce support and troubleshooting.</li>
+              <li>Ensured code quality via unit testing & SonarQube.</li>
+              <li>Contributed to CI/CD deployments using Copado.</li>
+            </ul>
+          </div>
+          <div class="ml-6 mb-10">
+            <h3 class="text-2xl font-semibold">Salesforce Developer – Accenture</h3>
+            <p class="text-sm text-gray-400 mb-3">Aug 2019 – Dec 2022</p>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Delivered support and customizations on Sales, Service, and FSL Clouds.</li>
+              <li>Built orchestration plans for Salesforce order management.</li>
+              <li>Developed Omniscript actions, APIs, and automated flows.</li>
+              <li>Created and customized attributes in Vlocity Product Console.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Projects -->
+    <section id="projects" class="max-w-6xl mx-auto py-20 px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">🚀 Projects</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
+          <img src="https://source.unsplash.com/400x250/?car,technology" class="rounded mb-4" />
+          <h3 class="text-xl font-semibold mb-2">Automobile Client</h3>
+          <p>Built customer vehicle ordering portal using Experience Cloud, LWCs, and Omniscripts.</p>
+        </div>
+        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
+          <img src="https://source.unsplash.com/400x250/?communication,team" class="rounded mb-4" />
+          <h3 class="text-xl font-semibold mb-2">Sales & Communication Client</h3>
+          <p>Developed guided flows, custom components, and integrated email automation using flows & APIs.</p>
+        </div>
+        <div class="glass-card p-6 shadow-xl hover:scale-105 transition">
+          <img src="https://source.unsplash.com/400x250/?technology,work" class="rounded mb-4" />
+          <h3 class="text-xl font-semibold mb-2">Communication Client</h3>
+          <p>Delivered Apex triggers, LWCs, and integrations; ensured release quality with refactored test classes.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Certifications -->
+    <section id="certifications" class="bg-gray-900 py-20 px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">🎓 Certifications</h2>
+      <div class="flex flex-wrap justify-center gap-6">
+        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Platform Developer I</span>
+        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce App Builder</span>
+        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Administrator</span>
+        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Salesforce Omnistudio Developer</span>
+        <span class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Copado Fundamentals I</span>
+      </div>
+    </section>
+    <!-- Contact -->
+    <section id="contact" class="max-w-3xl mx-auto py-20 px-6 text-center">
+      <h2 class="text-4xl font-bold mb-6">📩 Get In Touch</h2>
+      <p class="mb-6">Interested in working together? Let's connect!</p>
+      <form action="https://formspree.io/f/mwkzjdbq" method="POST" class="glass-card p-6 space-y-4">
+        <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 rounded-lg text-black" />
+        <input type="email" name="email" placeholder="Your Email" required class="w-full p-3 rounded-lg text-black" />
+        <textarea name="message" placeholder="Your Message" rows="4" required class="w-full p-3 rounded-lg text-black"></textarea>
+        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow hover:scale-105 transition">Send Message</button>
+      </form>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-600 to-purple-700 text-white text-center py-6">
+      <p>© 2025 Paranj Sharma</p>
+      <div class="flex justify-center gap-6 mt-3">
+        <a href="https://www.linkedin.com" target="_blank" class="hover:text-gray-300">
+          <i data-feather="linkedin"></i>
+        </a>
+        <a href="https://github.com" target="_blank" class="hover:text-gray-300">
+          <i data-feather="github"></i>
+        </a>
+        <a href="mailto:paranjsharma@gmail.com" class="hover:text-gray-300">
+          <i data-feather="mail"></i>
+        </a>
+      </div>
+      <div class="mt-4">
+        <button id="darkToggle" class="p-2 rounded-full bg-white text-blue-800 shadow">
+          <i id="themeIcon" data-feather="moon"></i>
+        </button>
+      </div>
+    </footer>
+    <script>
+      feather.replace(); // Typed.js effect var typed = new Typed('#typed', { strings: ["Salesforce Developer", "Apex | LWC | Aura", "Omnistudio Expert", "Integration Specialist"], typeSpeed: 60, backSpeed: 40, loop: true }); // Dark Mode toggle with icon switch const toggleBtn = document.getElementById('darkToggle'); const themeIcon = document.getElementById('themeIcon'); toggleBtn.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); if (document.documentElement.classList.contains('dark')) { themeIcon.setAttribute('data-feather', 'sun'); } else { themeIcon.setAttribute('data-feather', 'moon'); } feather.replace(); }); // Particles.js config particlesJS('particles-js', { particles: { number: { value: 80 }, size: { value: 3 }, move: { speed: 2 }, line_linked: { enable: true }, }, interactivity: { events: { onhover: { enable: true, mode: 'repulse' } }, } }); 
+    </script>
+  </body>
+</html>
